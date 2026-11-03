@@ -2,111 +2,326 @@ export type Link = { label: string; href: string; external?: boolean };
 
 export const site = {
   name: 'MarvelleDev',
-  person: 'ADENIYI Marvellous Emmanuel',
-  firstName: 'Marvellous',
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://marvels.studio',
+  person: 'Marvel Adeniyi',
+  firstName: 'Marvel',
+  role: 'Full-Stack Software Developer',
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://marvelledev.vercel.app',
   email: 'adeniyimarv@gmail.com',
-  phoneDisplay: '08107387326',
+  phoneDisplay: '0810 738 7326',
   phoneIntl: '+2348107387326',
-  // Edit this one line if the wording of your degree needs to change everywhere.
-  education: 'software engineering',
+  location: 'Lagos, Nigeria',
+  // One line, used everywhere the qualification appears.
+  education: 'B.Eng. Computer Engineering, Ekiti State University',
+  specialisation: 'Software Engineering',
   yearsExperience: '3+',
   socials: [
-    { label: 'TikTok', handle: '@marvelledev', href: 'https://www.tiktok.com/@marvelledev', external: true },
+    { label: 'LinkedIn', handle: 'Marvel Adeniyi', href: 'https://www.linkedin.com/in/adeniyi-marvellous', external: true },
     { label: 'Instagram', handle: '@marvelledev', href: 'https://www.instagram.com/marvelledev', external: true },
-    // Confirm this exact profile URL before launch.
-    { label: 'LinkedIn', handle: 'ADENIYI Marvellous Emmanuel', href: 'https://www.linkedin.com/in/adeniyi-marvellous', external: true },
+    { label: 'TikTok', handle: '@marvelledev', href: 'https://www.tiktok.com/@marvelledev', external: true },
   ],
-  cvHref: '/api/cv',
 } as const;
 
 export const nav: Link[] = [
-  { label: 'Home', href: '/' },
-  { label: 'Projects', href: '/projects' },
+  { label: 'Work', href: '/projects' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
-  { label: 'Why a website', href: '/why-a-website' },
-  { label: 'Referral', href: '/referral' },
   { label: 'Contact', href: '/contact' },
 ];
 
-export const stack = ['React.js', 'Next.js', 'TypeScript', 'Node.js', 'NestJS', 'PostgreSQL', 'Prisma', 'API Development', 'Full Stack Engineering'];
-
 export type Project = {
-  slug: string; name: string; status: 'live' | 'in-progress'; statusLabel: string; positioning: string;
-  url: string; summary: string; role: string; tech: string[]; details: string[]; cta: string; shot?: string;
+  slug: string;
+  name: string;
+  kind: 'Client work' | 'Product' | 'In progress';
+  tagline: string;
+  summary: string;
+  problem: string;
+  contribution: string;
+  features: string[];
+  tech: string[];
+  url: string;
+  shot: string;
+  shotMobile?: string;
+  note?: string;
+  featured?: boolean;
 };
 
-// Only list what is verified. Add real screenshots at /public/images/projects/<slug>.jpg and set `shot`.
+/**
+ * Six live projects. Every screenshot in /public/images/projects was captured
+ * from the deployed site. No numbers, clients or results are claimed here that
+ * were not visible on the product itself.
+ */
 export const projects: Project[] = [
   {
-    slug: 'ng-law-digest', name: 'NG Law Digest', status: 'live', statusLabel: 'Live',
-    positioning: 'A Content Management System Built for Legal Publishing.',
+    slug: 'ng-law-digest',
+    name: 'NG Law Digest',
+    kind: 'Client work',
+    tagline: 'Legal publishing at magazine scale.',
+    summary:
+      'A Nigerian legal publication with cover stories, long-form interviews, an issues archive and a weekly newsletter.',
+    problem:
+      'The publication carries long interviews, past issues and practice-area coverage. A blog feed would bury all three, so the platform had to be built around editions.',
+    contribution:
+      'Built the publishing platform: article and interview templates, the issues archive, practice-area navigation and newsletter capture, with an editorial flow the team can run without a developer.',
+    features: [
+      'Cover-story and long-form interview layouts',
+      'Issues archive with print covers',
+      'Practice-area taxonomy',
+      'Newsletter signup',
+    ],
+    tech: ['Next.js', 'TypeScript', 'Content platform', 'REST APIs'],
     url: 'https://nglawdigestblog.com',
-    summary: 'A legal publishing platform with content management capabilities.',
-    role: 'Worked on the platform’s development, including content publishing workflows and administrative functionality.',
-    tech: ['Next.js', 'TypeScript', 'CMS', 'Backend integration'],
-    details: ['Content publishing workflows', 'Administrative functionality', 'Responsive reading experience'],
-    cta: 'Explore NG Law Digest',
+    shot: '/images/projects/ng-law-digest-desktop.png',
+    shotMobile: '/images/projects/ng-law-digest-mobile.png',
+    featured: true,
   },
   {
-    slug: 'ee-studios', name: 'E&E Studios', status: 'live', statusLabel: 'Live · UI designed and built in 2 days',
-    positioning: 'A Digital Presence Designed to Showcase Creative Work.',
-    url: 'https://eestudios.vercel.app/',
-    summary: 'A website that helps a creative business present its work and lets customers reach pricing and discount information.',
-    role: 'Designed the user interface and built the website, both within two days, to meet an urgent business need.',
-    tech: ['UI design', 'Next.js', 'Responsive web'],
-    details: ['Clear path to pricing and discount information', 'Visual presentation of the business', 'Delivered in two days'],
-    cta: 'Explore E&E Studios',
+    slug: 'settleng',
+    name: 'SettleNG',
+    kind: 'Product',
+    tagline: 'Money tracking for people who run shops, not spreadsheets.',
+    summary:
+      'A free record-keeping app for Nigerian traders: sales, expenses, customer debts, invoices, bank-statement imports and a dashboard that adds up.',
+    problem:
+      'A busy day is dozens of small sales, a restock and credit given to a regular. By evening the notebook is under the counter and the numbers blur.',
+    contribution:
+      'Designed and built the product end to end: the data model for sales, expenses and debts, the dashboard, statement import with duplicate blocking, and Supabase authentication.',
+    features: [
+      'Sales and expense records in a few taps',
+      'Customer debts, invoices and part payments',
+      'CSV, Excel and PDF statement import',
+      'Profit, cash flow and debt-ageing views',
+    ],
+    tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Supabase', 'Tailwind CSS'],
+    url: 'https://settleng.vercel.app/',
+    shot: '/images/projects/settleng-desktop.png',
+    shotMobile: '/images/projects/settleng-mobile.png',
+    featured: true,
   },
   {
-    slug: 'kova-shop', name: 'Kova Shop', status: 'in-progress', statusLabel: 'In progress',
-    positioning: 'A Marketplace Project in Progress.',
-    url: 'https://kovashopp.vercel.app/',
-    summary: 'A marketplace application intended to support sellers and buyers through structured product discovery.',
-    role: 'Building the marketplace application. Still under development, so unfinished features are not presented as complete.',
+    slug: 'max-gadgets',
+    name: 'Max Gadgets',
+    kind: 'Client work',
+    tagline: 'A phone shop that answers before you call.',
+    summary:
+      'A storefront for an iPhone retailer and repair bench in Ado-Ekiti: the model range, eleven repair services, bulk quotes and WhatsApp enquiries.',
+    problem:
+      'Naira prices move weekly, so a printed price list is wrong by the next morning. The shop needed to show its range and take enquiries, not quote stale numbers.',
+    contribution:
+      'Built the storefront and the enquiry flow: every model and repair opens a pre-filled WhatsApp message, and bulk requests get their own path.',
+    features: [
+      'iPhone range with per-model WhatsApp enquiry',
+      'Eleven repair services with detail',
+      'Before-and-after repair gallery',
+      'Bulk quote requests and shop details',
+    ],
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'WhatsApp integration'],
+    url: 'https://maxgadgets.vercel.app/',
+    shot: '/images/projects/max-gadgets-desktop.png',
+    shotMobile: '/images/projects/max-gadgets-mobile.png',
+    featured: true,
+  },
+  {
+    slug: 'kova-shop',
+    name: 'Kova Shop',
+    kind: 'In progress',
+    tagline: 'A marketplace where a product is one shareable link.',
+    summary:
+      'A two-sided marketplace: buyers browse physical and digital products, sellers open a store and every listing gets a permanent link and QR code.',
+    problem:
+      'Small sellers work from WhatsApp and flyers. They need one link that never changes, and buyers need to see what they are getting without installing an app.',
+    contribution:
+      'Designed and building the storefront, seller onboarding, listings and cart, with a relational model for stores, products, orders and seller payouts.',
+    features: [
+      'Buyer and seller accounts',
+      'Listings with permanent links and QR codes',
+      'Physical and digital product types',
+      'Cart and checkout flow',
+    ],
     tech: ['Next.js', 'NestJS', 'PostgreSQL', 'Prisma'],
-    details: ['Marketplace architecture and user roles', 'Product records and data integrity', 'Payments are not claimed as operational'],
-    cta: 'Explore Kova Shop',
+    url: 'https://kova-shopp.vercel.app/',
+    shot: '/images/projects/kova-shop-desktop.png',
+    shotMobile: '/images/projects/kova-shop-mobile.png',
+    note: 'The marketplace is deployed; listings are still being seeded, so the browse pages are empty by design.',
+  },
+  {
+    slug: 'ee-studios',
+    name: 'E&E Studios',
+    kind: 'Client work',
+    tagline: 'A photography brand, designed and shipped in two days.',
+    summary:
+      'A photography site for portraits, weddings and birthdays: gallery, services, process and a booking enquiry, now trading as E&E Photography.',
+    problem:
+      'The studio needed to look credible next to photographers with years of web presence, and it needed to happen that week.',
+    contribution:
+      'Designed the interface and built the site end to end in two days: gallery, service pages, the booking flow and the motion that carries them.',
+    features: [
+      'Interactive photography gallery',
+      'Services, process and about pages',
+      'Booking enquiries',
+      'Delivered in two days',
+    ],
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Motion'],
+    url: 'https://eestudios.vercel.app/',
+    shot: '/images/projects/ee-studios-desktop.png',
+    shotMobile: '/images/projects/ee-studios-mobile.png',
+  },
+  {
+    slug: 'gees-fitness',
+    name: "Gee's Fitness",
+    kind: 'Client work',
+    tagline: 'One gym brand, three businesses in it.',
+    summary:
+      'A site for a coach in Sagamu selling training, gym equipment and gym setup, with a consultation form and a gallery of the facility.',
+    problem:
+      'Three different offers were sharing one Instagram page, so every enquiry started with the same explanation of what the business actually does.',
+    contribution:
+      'Built the brand site: a service architecture that separates training, equipment and setup, the gallery, location details and the consultation form.',
+    features: [
+      'Six services with detail pages',
+      'Consultation booking form',
+      'Gym and equipment gallery',
+      'Location, hours and contact',
+    ],
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Forms'],
+    url: 'https://gees-fitness.vercel.app/',
+    shot: '/images/projects/gees-fitness-desktop.png',
+    shotMobile: '/images/projects/gees-fitness-mobile.png',
   },
 ];
 
-export const industries = [
-  { tag: 'Makeup artists', q: 'Are you a makeup artist?', a: 'Your customers need to see how credible you are, and book you digitally. A website shows your portfolio and packages and gives clients a clear way to reserve you.' },
-  { tag: 'Construction', q: 'Do you own a construction company?', a: 'Premium clients check credibility before they call. Put completed projects, credentials and quotation requests where serious buyers can find them.' },
-  { tag: 'Photographers', q: 'Do you shoot for a living?', a: 'Curated galleries, package details and a booking path, instead of scattered posts.' },
-  { tag: 'Fashion brands', q: 'Selling fashion?', a: 'Collections, product details, delivery information and a clear way to buy or enquire.' },
-  { tag: 'Restaurants', q: 'Running a restaurant?', a: 'Menu, hours, location and reservations, ready before they arrive.' },
-  { tag: 'Consultants', q: 'Selling expertise?', a: 'Case studies and clear services attract better-qualified enquiries.' },
-  { tag: 'Churches and organisations', q: 'Leading a community?', a: 'Events, programmes, resources and contact details in one central place.' },
+export const featured = projects.filter((p) => p.featured);
+export const projectBySlug = (slug: string) => projects.find((p) => p.slug === slug);
+
+export const stack = [
+  { name: 'TypeScript', group: 'Frontend' },
+  { name: 'React', group: 'Frontend' },
+  { name: 'Next.js', group: 'Frontend' },
+  { name: 'JavaScript', group: 'Frontend' },
+  { name: 'Tailwind CSS', group: 'Frontend' },
+  { name: 'Node.js', group: 'Backend' },
+  { name: 'NestJS', group: 'Backend' },
+  { name: 'REST APIs', group: 'Backend' },
+  { name: 'PostgreSQL', group: 'Data' },
+  { name: 'Prisma', group: 'Data' },
+  { name: 'Supabase', group: 'Data' },
 ];
 
-export const benefits = [
-  ['Credibility on first look', 'People judge before they call. A clear site answers “can I trust them?” quickly.'],
-  ['A storefront that never closes', 'Visitors can browse your offer and reach you at any hour.'],
-  ['Enquiries in one place', 'Forms, WhatsApp and booking paths that bring leads together.'],
-  ['A home you own', 'Social media is for discovery; your website is the place you control.'],
-  ['Less repeating yourself', 'Pricing, services and FAQs answer common questions for you.'],
-  ['Room to grow', 'Start simple, then add bookings, payments or dashboards when you need them.'],
+export const capabilities = [
+  {
+    title: 'Frontend engineering',
+    body: 'Interfaces in React and Next.js: component architecture, responsive layouts and the small details that make a product feel finished.',
+    tech: 'React · Next.js · TypeScript · Tailwind CSS',
+  },
+  {
+    title: 'Backend and APIs',
+    body: 'Node and NestJS services, REST endpoints, authentication and the business logic behind the screens.',
+    tech: 'Node.js · NestJS · REST APIs',
+  },
+  {
+    title: 'Data and persistence',
+    body: 'Relational models in PostgreSQL with Prisma, migrations, and the queries that keep records correct as a product grows.',
+    tech: 'PostgreSQL · Prisma · Supabase',
+  },
+];
+
+/**
+ * Verified highlights only: each one is visible on a live project.
+ * No invented client names or performance numbers.
+ */
+export const highlights = [
+  {
+    value: '2',
+    unit: 'days',
+    title: 'Design to launch on a deadline',
+    body: 'E&E Studios was designed and built in two days for a studio that needed to be live that week.',
+    href: '/projects/ee-studios',
+  },
+  {
+    value: '6',
+    unit: 'live products',
+    title: 'Shipped, not mocked up',
+    body: 'Legal publishing, a marketplace, a money tracker, retail, fitness and photography. Every screenshot is from the deployed site.',
+    href: '/projects',
+  },
+  {
+    value: '3',
+    unit: 'layers',
+    title: 'Frontend, API and database',
+    body: 'SettleNG runs on a PostgreSQL schema with authentication, statement import and reporting — not just a storefront.',
+    href: '/projects/settleng',
+  },
 ] as const;
 
 export const services = [
-  { title: 'Business Websites', for: 'For companies and entrepreneurs that need a professional digital presence.', items: ['Responsive design and development', 'Business information architecture', 'Service or product pages', 'Contact and enquiry forms', 'WhatsApp contact integration', 'Basic search engine optimisation', 'Deployment and launch support'] },
-  { title: 'E-commerce and Product Websites', for: 'For brands that want to present products and make buying or enquiring easier.', items: ['Product catalogues and detail pages', 'Product filtering where required', 'Cart and checkout integrations where appropriate', 'Payment integration where specified', 'Delivery and contact information'] },
-  { title: 'Custom Web Applications', for: 'For businesses that need more than static pages.', items: ['Custom application interfaces', 'User authentication and role-based access', 'Administrative dashboards', 'API development and integration', 'Database-backed workflows', 'Application deployment'] },
-  { title: 'Content Management Systems', for: 'For publishers, organisations and businesses that manage content regularly.', items: ['Administrative interfaces', 'Article and media management', 'Content publishing workflows', 'User permissions', 'Structured content storage'] },
-  { title: 'Improvements and Maintenance', for: 'For businesses that already have a website but need it improved.', items: ['Performance investigation', 'UI improvements', 'Responsive layout corrections', 'Bug fixes and feature enhancements', 'Maintenance and technical support'] },
+  {
+    title: 'Business websites',
+    for: 'A credible home for a business that currently lives on social media.',
+    items: ['Responsive design and build', 'Service and product pages', 'Enquiry and WhatsApp flows', 'Basic SEO and analytics'],
+    image: '/images/scenes/retail-checkout.jpg',
+    alt: 'A shop owner taking a card payment from a customer at a counter',
+  },
+  {
+    title: 'E-commerce development',
+    for: 'Catalogues, carts and checkout paths for brands selling online.',
+    items: ['Product catalogue and detail pages', 'Cart and checkout', 'Payment integration where specified', 'Order and delivery information'],
+    image: '/images/projects/max-gadgets-desktop.png',
+    alt: 'Max Gadgets storefront homepage',
+  },
+  {
+    title: 'Full-stack web applications',
+    for: 'Products with accounts, roles, records and real business logic.',
+    items: ['Application interfaces', 'Authentication and permissions', 'Dashboards and admin tools', 'Database-backed workflows'],
+    image: '/images/projects/settleng-desktop.png',
+    alt: 'SettleNG dashboard and landing page',
+  },
+  {
+    title: 'Custom software',
+    for: 'Internal tools that replace spreadsheets, notebooks and WhatsApp threads.',
+    items: ['Inventory and record keeping', 'Reporting and exports', 'Approval and workflow tools', 'Integrations with existing systems'],
+    image: '/images/scenes/team-planning.jpg',
+    alt: 'A team planning a project with sticky notes and laptops',
+  },
+  {
+    title: 'API and backend development',
+    for: 'The services other applications depend on.',
+    items: ['REST API design and build', 'Database design and migrations', 'Third-party integrations', 'Background jobs and notifications'],
+    image: '/images/scenes/team-at-work.jpg',
+    alt: 'Developers working together on laptops',
+  },
+  {
+    title: 'Improvements and maintenance',
+    for: 'A site or app that already exists and needs to work better.',
+    items: ['Performance investigation', 'Responsive and UI fixes', 'Bug fixes and new features', 'Ongoing support'],
+    image: '/images/scenes/office.jpg',
+    alt: 'A modern office interior',
+  },
 ];
 
-export const workSteps = ['Understand the problem.', 'Define the intended outcome.', 'Plan the user experience.', 'Choose an appropriate technical architecture.', 'Build and test the solution.', 'Deploy and evaluate the result.', 'Improve based on feedback and real usage.'];
+export const workProcess = [
+  { step: '01', title: 'Understand', body: 'What the product must do, who uses it and what is already there.' },
+  { step: '02', title: 'Design', body: 'Structure, screens and the data model, decided together.' },
+  { step: '03', title: 'Build', body: 'Frontend, API and database in one codebase, reviewed as it goes.' },
+  { step: '04', title: 'Ship', body: 'Deployed, measured, then improved with the people using it.' },
+];
 
-export const workspace = [
-  { src: '/images/ws-fitness.jpg', alt: 'Marvellous at his MarvelleDev workstation with a fitness coaching website on the monitor, tablet and phone', caption: 'Fitness coaching site on screen' },
-  { src: '/images/ws-makeup.jpg', alt: 'Marvellous at his workstation with a makeup artistry website on the monitor and laptops', caption: 'Makeup artistry site on screen' },
-  { src: '/images/ws-barber.jpg', alt: 'Marvellous at his workstation with a barber booking website on the monitor and tablet', caption: 'Barber booking site on screen' },
-  { src: '/images/ws-plumbing.jpg', alt: 'Marvellous at his workstation with a plumbing services website on the monitor and laptops', caption: 'Plumbing services site on screen' },
-  { src: '/images/ws-streaming.jpg', alt: 'Marvellous at his desk with a streaming website on the monitor, tablet and phone', caption: 'Streaming site on screen' },
-] as const;
+export const photos = {
+  team: {
+    src: '/images/scenes/team-at-work.jpg',
+    alt: 'Four developers working together on laptops around a wooden table',
+  },
+  planning: {
+    src: '/images/scenes/team-planning.jpg',
+    alt: 'A product team running a planning session with sticky notes',
+  },
+  retail: {
+    src: '/images/scenes/retail-checkout.jpg',
+    alt: 'A shop owner taking a card payment from a customer',
+  },
+  office: {
+    src: '/images/scenes/office.jpg',
+    alt: 'The interior of a modern software studio',
+  },
+} as const;
 
 export function waLink(text: string) {
   return `https://wa.me/${site.phoneIntl.replace('+', '')}?text=${encodeURIComponent(text)}`;

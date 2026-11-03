@@ -1,42 +1,113 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Gallery } from '@/components/Gallery';
 import { Reveal } from '@/components/Reveal';
-import { CvButton } from '@/components/CvButton';
-import { workSteps, site } from '@/lib/site';
+import { CtaBand } from '@/components/CtaBand';
+import { photos, site, workProcess } from '@/lib/site';
 import { meta } from '@/lib/seo';
 
-export const metadata = meta('About', `The story of ${site.person}: from curiosity about screens to building web solutions for customers.`, '/about');
-
-const chapters = [
-  ['01', 'Curiosity about screens', 'I wanted to know what happens behind the interface: how ideas become products people use every day.'],
-  ['02', `University: ${site.education}`, `I majored in ${site.education}, learning to break big problems into smaller ones, design a solution and write the code.`],
-  ['03', 'Building for customers', 'I began building web solutions for customers: first websites, then full stack applications with APIs and databases.'],
-  ['04', 'Today', `${site.yearsExperience} years on, I think about the whole product: the problem, the people using it, the business behind it and the systems that make it work.`],
-];
+export const metadata = meta(
+  'About Marvel Adeniyi',
+  'Full-stack software developer in Lagos. B.Eng. Computer Engineering, Ekiti State University, with software engineering as my specialisation.',
+  '/about',
+);
 
 export default function About() {
   return (
-    <section className="w">
-      <p className="tag">// About</p>
-      <h2>An Engineer by Training. A Builder by Instinct.</h2>
-      <div className="sp" style={{ marginTop: 20 }}>
-        <Reveal className="pf"><Image src="/images/portrait.jpg" alt="Portrait of Marvellous Adeniyi" fill priority sizes="(max-width:900px) 100vw, 480px" /></Reveal>
-        <Reveal>
-          <p className="lead">It started with screens.</p>
-          <p className="mut lead">I’ve always been fascinated by how a tap, a click or a scroll turns into something useful. That curiosity pulled me toward software.</p>
-          <div className="row"><CvButton variant="btn" /><Link className="btn2" href="/contact">Work with me</Link></div>
-        </Reveal>
-      </div>
-      {chapters.map(([n, t, d]) => <Reveal as="section" className="ch" key={n}><span className="num">{n}</span><div><h3 style={{ fontSize: 30 }}>{t}</h3><p className="mut lead">{d}</p></div></Reveal>)}
-      <div className="sp">
-        <Reveal><p className="tag">// Off the keyboard</p><h2>Curious by default.</h2><p className="mut lead">I like understanding how real businesses present themselves, because that’s what I build for.</p></Reveal>
-        <Reveal className="pf"><Image src="/images/jersey.jpg" alt="Marvel in a MARVEL 21 jersey, looking at a wall display" fill sizes="(max-width:900px) 100vw, 480px" /></Reveal>
-      </div>
-      <h2 style={{ margin: '64px 0 18px' }}>In the workspace</h2>
-      <Gallery />
-      <h2 style={{ margin: '56px 0 18px' }}>How I work</h2>
-      <ol className="pr">{workSteps.map((s) => <li key={s}>{s}</li>)}</ol>
-    </section>
+    <>
+      <section className="wrap" style={{ paddingTop: 'clamp(36px,5vw,60px)' }}>
+        <div className="split">
+          <div>
+            <p className="eyebrow">About</p>
+            <h1>I build the whole product, not just the screen.</h1>
+            <p className="lead" style={{ marginTop: 18 }}>
+              I’m Marvel Adeniyi, a full-stack software developer in {site.location}. I take a
+              problem from a blank page to something people use: the interface, the API, the database
+              and the deployment.
+            </p>
+            <div className="row" style={{ marginTop: 22 }}>
+              <Link className="btn" href="/contact">Work with me</Link>
+              <Link className="btn-ghost" href="/projects">See the work</Link>
+            </div>
+          </div>
+          <Reveal className="media tall">
+            <Image src="/images/portrait.jpg" alt="Portrait of Marvel Adeniyi" fill priority sizes="(max-width: 900px) 100vw, 46vw" />
+          </Reveal>
+        </div>
+
+        <div className="fact-row">
+          <div className="fact">Degree<b>{site.education}</b></div>
+          <div className="fact">Specialisation<b>{site.specialisation}</b></div>
+          <div className="fact">Experience<b>{site.yearsExperience} years building</b></div>
+          <div className="fact">Focus<b>Full-stack · Web products</b></div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <div className="split">
+            <Reveal>
+              <p className="eyebrow">How I got here</p>
+              <h2>Engineering first, then the product.</h2>
+              <p className="lead" style={{ marginTop: 14 }}>
+                Computer Engineering taught me to break a problem down and build the system that
+                solves it. Software engineering was the part I chose to specialise in.
+              </p>
+              <p className="muted">
+                The first paid work was websites for small businesses: a photographer, a gym, a phone
+                shop. Each one started with the same question — what does this business need to
+                happen next? That question is what turned into building applications: accounts,
+                records, invoices, dashboards.
+              </p>
+              <p className="muted">
+                Today I work across React and Next.js on the front, NestJS and Node on the back, and
+                PostgreSQL underneath. I still test in the browser with real data before I call
+                anything finished, and I would rather tell you a feature is not ready than ship
+                something that only looks finished.
+              </p>
+            </Reveal>
+            <Reveal className="media" style={{ transitionDelay: '100ms' }}>
+              <Image src={photos.planning.src} alt={photos.planning.alt} fill sizes="(max-width: 900px) 100vw, 42vw" />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <p className="eyebrow">How I work</p>
+          <h2>Short projects, visible progress.</h2>
+          <div className="steps">
+            {workProcess.map((s) => (
+              <div className="step" key={s.step}>
+                <span>{s.step}</span>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="split" style={{ marginTop: 48 }}>
+            <Reveal className="media">
+              <Image src={photos.team.src} alt={photos.team.alt} fill sizes="(max-width: 900px) 100vw, 46vw" />
+            </Reveal>
+            <Reveal>
+              <h2>What you can expect.</h2>
+              <ul className="cs-list" style={{ marginTop: 14 }}>
+                <li>A scope and a price before work starts, not after.</li>
+                <li>The build deployed early so you can click it, not just look at screenshots.</li>
+                <li>Honest status: what works, what is pending, what I would change.</li>
+                <li>Support after launch for the things real users find.</li>
+              </ul>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <CtaBand
+        title="If that sounds like the developer you need, say hello."
+        body="Recruiters, teams and business owners all get the same answer: what I can do, what it costs and when it can be live."
+        primary={{ label: 'Contact me', href: '/contact' }}
+        secondary={{ label: 'Read the case studies', href: '/projects' }}
+      />
+    </>
   );
 }

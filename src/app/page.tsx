@@ -3,126 +3,217 @@ import Link from 'next/link';
 import { Reveal } from '@/components/Reveal';
 import { Marquee } from '@/components/Marquee';
 import { ArchDiagram } from '@/components/ArchDiagram';
-import { Gallery } from '@/components/Gallery';
-import { CvButton } from '@/components/CvButton';
-import { benefits, industries, projects, site } from '@/lib/site';
+import { ProjectCard } from '@/components/ProjectCard';
+import { CtaBand } from '@/components/CtaBand';
+import { capabilities, featured, highlights, photos, services, site, stack, workProcess } from '@/lib/site';
 import { meta } from '@/lib/seo';
 
-export const metadata = meta('Full Stack Developer building websites that grow brands', 'MarvelleDev builds websites, web applications and digital products that help brands earn trust, attract customers and grow beyond social media.', '/');
-
-const systems = [
-  ['Booking and enquiry flows', 'Give customers a clear next step: book, request a quote or message you.'],
-  ['Dashboards and CMS', 'Admin tools so you can manage content and operations without touching code.'],
-  ['Database-backed workflows', 'Users, roles and records that keep your data organised.'],
-  ['Integrations', 'APIs, WhatsApp contact and payments where specified.'],
-];
+export const metadata = meta(
+  'Marvel Adeniyi — Full-Stack Software Developer',
+  'I build digital products that solve real problems: websites, web applications and the systems behind them. React, Next.js, Node, NestJS and PostgreSQL.',
+  '/',
+);
 
 export default function Home() {
-  const jsonLd = { '@context': 'https://schema.org', '@type': 'Person', name: site.person, alternateName: site.name, url: site.url, email: site.email, jobTitle: 'Full Stack Software Developer', sameAs: site.socials.map((s) => s.href) };
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.person,
+    jobTitle: site.role,
+    url: site.url,
+    email: `mailto:${site.email}`,
+    address: { '@type': 'PostalAddress', addressLocality: 'Lagos', addressCountry: 'NG' },
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'Ekiti State University' },
+    knowsAbout: stack.map((s) => s.name),
+    sameAs: site.socials.map((s) => s.href),
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <section className="w hero">
+
+      {/* Hero */}
+      <section className="wrap hero">
         <div>
-          <p className="tag">// Full Stack Developer · Digital Solutions</p>
-          <h1>Your Next Competitive Advantage Starts With <em>Code.</em></h1>
-          <p className="lead" style={{ margin: '20px 0 10px' }}>I build digital experiences that help brands earn trust, attract customers, and grow beyond social media.</p>
-          <p className="mut" style={{ maxWidth: 560 }}>I’m Marvellous, a Full Stack Developer with {site.yearsExperience} years of experience turning ideas into websites, web applications, and digital products built around real problems.</p>
+          <span className="hero-status"><i /> Available for work · {site.location}</span>
+          <h1>I build digital products that solve real problems.</h1>
+          <p className="lead">
+            I’m Marvel Adeniyi, a full-stack software developer. I design and build websites, web
+            applications and the systems behind them — frontend, API and database.
+          </p>
           <div className="row">
-            <Link className="btn" href="/contact">Build Something With Me</Link>
-            <Link className="btn2" href="/projects">Explore My Work</Link>
-            <CvButton />
+            <Link className="btn" href="/projects">View my work</Link>
+            <Link className="btn-ghost" href="/contact">Let’s work together</Link>
           </div>
-          <div className="scroll" aria-hidden="true"><i />SCROLL</div>
+          <div className="fact-row">
+            <div className="fact">Experience<b>{site.yearsExperience} years</b></div>
+            <div className="fact">Stack<b>React · Node · PostgreSQL</b></div>
+            <div className="fact">Based in<b>{site.location}</b></div>
+          </div>
         </div>
-        <div className="stage">
-          <Image src="/images/portrait.jpg" alt="Portrait of Marvellous Adeniyi" fill priority sizes="(max-width:900px) 100vw, 520px" />
-          <div className="chip c1">$ ship --idea<br /><b>→ working product ✓</b></div>
-          <div className="chip c2">Next.js · NestJS · PostgreSQL</div>
-          <div className="chip c3">{site.yearsExperience} years building for the web</div>
-        </div>
-      </section>
-      <Marquee />
 
-      <section className="w">
-        <p className="tag">// Who are you building for?</p>
-        <h2>Whatever you sell, your customers are already checking you online.</h2>
-        <div className="g" style={{ marginTop: 26 }}>
-          {industries.map((i) => (
-            <Reveal key={i.tag}><Link href="/why-a-website" className="card"><span className="tag">{i.tag}</span><h3>{i.q}</h3><p className="mut">{i.a}</p><span className="st-l">See why →</span></Link></Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="w">
-        <p className="tag">// What you stand to get</p>
-        <h2>What a website can do for your business.</h2>
-        <p className="mut lead">Results depend on traffic, offer and trust, but this is what a well-built site puts in your hands.</p>
-        <div className="g" style={{ marginTop: 26 }}>
-          {benefits.map(([t, d], i) => <Reveal key={t}><div className="card"><span className="tag">0{i + 1}</span><h3>{t}</h3><p className="mut">{d}</p></div></Reveal>)}
+        <div className="hero-media">
+          <div className="hero-frame">
+            <Image
+              src="/images/portrait.jpg"
+              alt="Marvel Adeniyi, full-stack software developer"
+              fill
+              priority
+              sizes="(max-width: 1024px) 90vw, 480px"
+            />
+            <div className="hero-chip">
+              <span><b>Building now</b><br />SettleNG · money tracking</span>
+              <span aria-hidden="true">↗</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="w">
-        <Reveal className="card sp"><div style={{ padding: 16 }}>
-          <div><div className="big">2</div><p className="tag">days</p></div></div>
-          <div><p className="tag">// Fast timelines</p><h2>A website can be live in two days, depending on how fast you need it.</h2>
-            <p className="mut">For E&amp;E Studios, I designed the interface and built the site within two days to meet an urgent business need. Timelines depend on scope, content and how quickly feedback arrives, and we agree one up front.</p>
-            <Link className="btn" href="/contact">Tell me your deadline</Link></div>
-        </Reveal>
-      </section>
+      <Marquee items={stack.map((s) => s.name)} />
 
-      <section className="w">
-        <p className="tag">// Systems, not just websites</p>
-        <h2>I build systems that help businesses grow.</h2>
-        <p className="mut lead">A pretty page isn’t the goal. A working system around your business is.</p>
-        <div className="g" style={{ marginTop: 26 }}>{systems.map(([t, d]) => <Reveal key={t}><div className="card"><h3>{t}</h3><p className="mut">{d}</p></div></Reveal>)}</div>
-      </section>
+      {/* Selected work */}
+      <section className="section" id="work">
+        <div className="wrap">
+          <Reveal>
+            <p className="eyebrow">Selected work</p>
+            <h2>Six products. Every screenshot from the live site.</h2>
+            <p className="lead" style={{ marginTop: 14 }}>
+              Client work, product builds and one marketplace still in progress — described honestly,
+              with the part I actually built.
+            </p>
+          </Reveal>
 
-      <section className="w">
-        <Reveal className="card" ><div style={{ padding: 16 }}>
-          <p className="tag">// Maintenance</p><h2>Launch is day one, not the finish line.</h2>
-          <p className="mut lead">Websites need care. I offer maintenance and technical support: bug fixes, UI and responsive improvements, performance checks and feature enhancements as your business grows.</p>
-          <Link className="btn2" href="/services">See services</Link></div>
-        </Reveal>
-      </section>
+          <div className="p-grid featured-grid" style={{ marginTop: 36 }}>
+            {featured.map((p, i) => (
+              <Reveal key={p.slug} style={{ transitionDelay: `${i * 70}ms` }}>
+                <ProjectCard project={p} priority={i === 0} />
+              </Reveal>
+            ))}
+          </div>
 
-      <section className="w">
-        <p className="tag">// Engineering</p>
-        <h2>Built on Engineering. Driven by Possibility.</h2>
-        <p className="mut lead">I understand systems, not just screens, so interfaces, APIs and databases work as one product.</p>
-        <div className="g" style={{ marginTop: 28 }}>
-          <Reveal><div className="card"><h3>Frontend</h3><p className="mut">React.js, Next.js, TypeScript, responsive interfaces, component architecture, UI performance.</p></div></Reveal>
-          <Reveal><div className="card"><h3>Backend</h3><p className="mut">Node.js, NestJS, REST APIs, authentication and authorisation, server-side application logic.</p></div></Reveal>
-          <Reveal><div className="card"><h3>Data &amp; Infrastructure</h3><p className="mut">PostgreSQL, Prisma, database design and integration, API integration, application deployment.</p></div></Reveal>
-        </div>
-        <ArchDiagram />
-      </section>
-
-      <section className="w">
-        <p className="tag">// Featured work</p><h2>Products, not just pages.</h2>
-        {projects.map((p) => <Reveal key={p.slug}><Link href="/projects" className="card" style={{ marginBottom: 16 }}><span className="st-p">{p.statusLabel}</span><h3>{p.name}</h3><span className="mut">{p.positioning}</span></Link></Reveal>)}
-      </section>
-
-      <section className="w">
-        <div className="sp">
-          <Reveal className="pf"><Image src="/images/jersey.jpg" alt="Marvel in a MARVEL 21 jersey, looking at a wall display" fill sizes="(max-width:900px) 100vw, 480px" /></Reveal>
-          <Reveal><p className="tag">// My story</p><h2>It started with screens.</h2><p className="mut lead">I fell for screens, studied {site.education} at university, then started building web solutions for real customers.</p><Link className="btn" href="/about">Read my story</Link></Reveal>
+          <div className="row" style={{ marginTop: 30 }}>
+            <Link className="btn-ghost" href="/projects">See all six projects</Link>
+          </div>
         </div>
       </section>
 
-      <section className="w">
-        <p className="tag">// Inside the workspace</p><h2>Where the work happens.</h2>
-        <Gallery />
+      {/* Highlights */}
+      <section className="section">
+        <div className="wrap">
+          <Reveal>
+            <p className="eyebrow">Built with purpose. Delivered with impact.</p>
+            <h2>What the work actually says.</h2>
+          </Reveal>
+          <div className="hl-grid" style={{ marginTop: 32 }}>
+            {highlights.map((h, i) => (
+              <Reveal key={h.title} style={{ transitionDelay: `${i * 70}ms` }}>
+                <div className="hl">
+                  <b>{h.value}<small>{h.unit}</small></b>
+                  <h3>{h.title}</h3>
+                  <p>{h.body}</p>
+                  <Link className="link-arrow" href={h.href}>See it <span>→</span></Link>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </section>
 
-      <section className="w">
-        <Reveal className="card" ><div style={{ padding: 16, textAlign: 'center' }}>
-          <h2>Good ideas deserve more than a social media post.</h2>
-          <p className="mut lead" style={{ margin: '0 auto' }}>Rented attention comes and goes. A website is your digital home.</p>
-          <div className="row" style={{ justifyContent: 'center' }}><Link className="btn" href="/why-a-website">Why every brand needs one</Link><Link className="btn2" href="/contact">Start a project</Link></div></div>
-        </Reveal>
+      {/* Capabilities */}
+      <section className="section">
+        <div className="wrap">
+          <div className="split">
+            <Reveal>
+              <p className="eyebrow">What I do</p>
+              <h2>Frontend, backend and the database between them.</h2>
+              <p className="lead" style={{ marginTop: 14 }}>
+                I work across the stack, so a screen, an endpoint and a table are designed together
+                instead of handed between three people.
+              </p>
+              <div className="caps" style={{ marginTop: 26 }}>
+                {capabilities.map((c) => (
+                  <div className="cap" key={c.title}>
+                    <h3>{c.title}</h3>
+                    <p>{c.body}</p>
+                    <span className="mono">{c.tech}</span>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+            <Reveal className="media" style={{ transitionDelay: '120ms' }}>
+              <Image src={photos.team.src} alt={photos.team.alt} fill sizes="(max-width: 900px) 100vw, 40vw" />
+            </Reveal>
+          </div>
+          <ArchDiagram />
+        </div>
       </section>
+
+      {/* Services strip */}
+      <section className="section">
+        <div className="wrap">
+          <Reveal>
+            <p className="eyebrow">Services</p>
+            <h2>What I can build for a business.</h2>
+          </Reveal>
+          <div className="g-chips">
+            {services.map((s) => (
+              <Link className="chip chip-lg" key={s.title} href="/services">{s.title} →</Link>
+            ))}
+          </div>
+          <div className="row" style={{ marginTop: 26 }}>
+            <Link className="btn-ghost" href="/services">How I work with clients</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* About preview */}
+      <section className="section">
+        <div className="wrap">
+          <div className="split rev">
+            <Reveal>
+              <p className="eyebrow">About</p>
+              <h2>An engineer who ships, not a designer who stops at mockups.</h2>
+              <p className="lead" style={{ marginTop: 14 }}>
+                I studied Computer Engineering at Ekiti State University and chose software
+                engineering as my specialisation. Since then I’ve built for law publishing, retail,
+                fitness, photography and small-business finance.
+              </p>
+              <p className="muted">
+                I care about the whole product: the problem, the person using it, the data behind it
+                and whether it still works six months after launch.
+              </p>
+              <div className="row" style={{ marginTop: 22 }}>
+                <Link className="btn" href="/about">More about me</Link>
+                <Link className="link-arrow" href="/projects">See the work <span>→</span></Link>
+              </div>
+            </Reveal>
+            <Reveal className="media tall" style={{ transitionDelay: '100ms' }}>
+              <Image src="/images/jersey.jpg" alt="Marvel Adeniyi at a display in a MARVEL 21 jersey" fill sizes="(max-width: 900px) 100vw, 42vw" />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Process */}
+      <section className="section">
+        <div className="wrap">
+          <Reveal>
+            <p className="eyebrow">How I work</p>
+            <h2>Four steps, no surprises.</h2>
+          </Reveal>
+          <div className="steps">
+            {workProcess.map((s) => (
+              <div className="step" key={s.step}>
+                <span>{s.step}</span>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CtaBand />
     </>
   );
 }

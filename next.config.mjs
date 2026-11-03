@@ -2,6 +2,13 @@
 const nextConfig = {
   poweredByHeader: false,
   images: { formats: ['image/avif', 'image/webp'] },
+  async redirects() {
+    return [
+      { source: '/why-a-website', destination: '/services', permanent: true },
+      { source: '/referral', destination: '/contact', permanent: true },
+      { source: '/cv', destination: '/about', permanent: true },
+    ];
+  },
   async headers() {
     return [{
       source: '/(.*)',

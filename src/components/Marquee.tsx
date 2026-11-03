@@ -1,6 +1,11 @@
-import { stack } from '@/lib/site';
-
-export function Marquee() {
-  const line = stack.join(' · ') + ' · ';
-  return <div className="mq" aria-label="Technologies"><div><span>{line}</span><span aria-hidden="true">{line}</span></div></div>;
+export function Marquee({ items }: { items: string[] }) {
+  const line = items.join(' · ');
+  return (
+    <div className="ticker" aria-label={`Technologies: ${items.join(', ')}`}>
+      <div className="ticker-track">
+        <span>{line}</span>
+        <span aria-hidden="true">{line}</span>
+      </div>
+    </div>
+  );
 }
