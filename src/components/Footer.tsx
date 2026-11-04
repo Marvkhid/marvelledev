@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Logo } from './Logo';
 import { ThemeToggle } from './ThemeToggle';
+import { ReplayIntro } from './ReplayIntro';
 import { nav, projects, site } from '@/lib/site';
 
 export function Footer() {
@@ -47,7 +48,10 @@ export function Footer() {
 
         <div className="ft-bot">
           <span>© {new Date().getFullYear()} {site.person} · {site.location}</span>
-          <ThemeToggle />
+          <span className="row" style={{ gap: 18 }}>
+            <ReplayIntro />
+            <ThemeToggle />
+          </span>
         </div>
       </div>
     </footer>

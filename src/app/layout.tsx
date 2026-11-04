@@ -5,6 +5,8 @@ import '@fontsource-variable/jetbrains-mono';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { Hud } from '@/components/Hud';
+import { CinemaIntro } from '@/components/CinemaIntro';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -57,7 +59,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <a className="skip" href="#main">Skip to content</a>
+        <CinemaIntro />
         <Header />
+        <Hud />
         <main id="main">{children}</main>
         <Footer />
       </body>

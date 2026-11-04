@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { mailConfigured, sendMail } from '@/lib/mail';
+import { mailConfigured, sendEnquiry, sendReceipt } from '@/lib/mail';
 import { clientIp, rateLimit, readJson } from '@/lib/ratelimit';
 import { contactSchema, tooFast } from '@/lib/validate';
 import { site } from '@/lib/site';
@@ -71,13 +71,46 @@ export async function POST(req: Request) {
     `Source: ${site.url}/contact`,
   ].join('\n');
 
+  const subject = `${d.enquiryType}: ${d.name}`;
+
+  const receiptSubject = `Your message to Marvel Adeniyi — ${d.enquiryType}`;
+  const receiptBody = [
+    `Hi ${d.name.split(' ')[0]},`,
+    '',
+    'Thanks for reaching out. Your message has reached my inbox, and you will get a reply',
+    'within one working day.',
+    '',
+    'Here is a copy of what you sent:',
+    '',
+    '— — —',
+    body,
+    '— — —',
+    '',
+    `If anything is urgent, reply to this email or write to ${site.email}.`,
+    '',
+    `${site.person}`,
+    site.url,
+  ].join('\n');
+
   try {
-    await sendMail(`${d.enquiryType}: ${d.name}`, body, d.email);
-    return NextResponse.json({ ok: true });
-  } catch {
+    await sendEnquiry(subject, body, d.email);
+  } catch (err) {
+    console.error('contact: enquiry delivery failed', err);
     return NextResponse.json(
       { error: `Your message could not be delivered. Please email ${site.email} directly.` },
       { status: 502 },
     );
   }
+
+  // The visitor's copy is a courtesy: the enquiry is already delivered, so a
+  // failure here must never tell them their message was lost.
+  let copy = false;
+  try {
+    await sendReceipt(receiptSubject, receiptBody, d.email);
+    copy = true;
+  } catch (err) {
+    console.error('contact: sender copy failed', err);
+  }
+
+  return NextResponse.json({ ok: true, copy });
 }

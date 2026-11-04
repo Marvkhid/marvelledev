@@ -5,7 +5,10 @@ import { Marquee } from '@/components/Marquee';
 import { ArchDiagram } from '@/components/ArchDiagram';
 import { ProjectCard } from '@/components/ProjectCard';
 import { CtaBand } from '@/components/CtaBand';
-import { capabilities, featured, highlights, photos, services, site, stack, workProcess } from '@/lib/site';
+import { WorldCanvas } from '@/components/WorldCanvas';
+import { ReelStrip } from '@/components/ReelStrip';
+import { ProcessFilm } from '@/components/ProcessFilm';
+import { capabilities, featured, highlights, photos, services, site, stack } from '@/lib/site';
 import { meta } from '@/lib/seo';
 
 export const metadata = meta(
@@ -32,8 +35,10 @@ export default function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* Hero */}
-      <section className="wrap hero">
+      {/* Hero — the world */}
+      <section className="world" id="hero" data-chapter="Opening">
+        <WorldCanvas />
+        <div className="wrap hero">
         <div>
           <span className="hero-status"><i /> Available for work · {site.location}</span>
           <h1>I build digital products that solve real problems.</h1>
@@ -67,12 +72,17 @@ export default function Home() {
             </div>
           </div>
         </div>
+        </div>
+        <div className="scroll-cue" aria-hidden="true">
+          <span>Scroll to begin</span>
+          <i />
+        </div>
       </section>
 
       <Marquee items={stack.map((s) => s.name)} />
 
       {/* Selected work */}
-      <section className="section" id="work">
+      <section className="section" id="work" data-chapter="Selected work">
         <div className="wrap">
           <Reveal>
             <p className="eyebrow">Selected work</p>
@@ -98,7 +108,7 @@ export default function Home() {
       </section>
 
       {/* Highlights */}
-      <section className="section">
+      <section className="section" id="impact" data-chapter="Impact">
         <div className="wrap">
           <Reveal>
             <p className="eyebrow">Built with purpose. Delivered with impact.</p>
@@ -120,7 +130,7 @@ export default function Home() {
       </section>
 
       {/* Capabilities */}
-      <section className="section">
+      <section className="section" id="craft" data-chapter="What I do">
         <div className="wrap">
           <div className="split">
             <Reveal>
@@ -149,7 +159,7 @@ export default function Home() {
       </section>
 
       {/* Services strip */}
-      <section className="section">
+      <section className="section" id="services" data-chapter="Services">
         <div className="wrap">
           <Reveal>
             <p className="eyebrow">Services</p>
@@ -167,7 +177,7 @@ export default function Home() {
       </section>
 
       {/* About preview */}
-      <section className="section">
+      <section className="section" id="about-me" data-chapter="About">
         <div className="wrap">
           <div className="split rev">
             <Reveal>
@@ -195,23 +205,22 @@ export default function Home() {
       </section>
 
       {/* Process */}
-      <section className="section">
+      <section className="section" id="process" data-chapter="Process">
         <div className="wrap">
           <Reveal>
             <p className="eyebrow">How I work</p>
             <h2>Four steps, no surprises.</h2>
+            <p className="lead" style={{ marginTop: 14 }}>
+              The whole process, start to launch — played out scene by scene.
+            </p>
           </Reveal>
-          <div className="steps">
-            {workProcess.map((s) => (
-              <div className="step" key={s.step}>
-                <span>{s.step}</span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </div>
-            ))}
-          </div>
+          <Reveal style={{ marginTop: 34 }}>
+            <ProcessFilm />
+          </Reveal>
         </div>
       </section>
+
+      <ReelStrip />
 
       <CtaBand />
     </>

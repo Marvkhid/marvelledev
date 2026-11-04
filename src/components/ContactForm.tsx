@@ -97,7 +97,13 @@ export function ContactForm() {
       <p className="note">Goes straight to {`adeniyimarv@gmail.com`}. No newsletter, no resale.</p>
 
       <div role="status" aria-live="polite">
-        {status.state === 'ok' && <p className="ok">Sent. Your message was accepted by the mail server — I’ll reply from adeniyimarv@gmail.com.</p>}
+        {status.state === 'ok' && (
+          <p className="ok">
+            {status.copy
+              ? 'Sent. It is in Marvel’s inbox and a copy is on its way to your email.'
+              : 'Sent. Your message reached Marvel’s inbox — the reply comes from adeniyimarv@gmail.com.'}
+          </p>
+        )}
         {status.state === 'error' && <p className="fe" style={{ marginTop: 8 }}>{status.message}</p>}
       </div>
     </form>
